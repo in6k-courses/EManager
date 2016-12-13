@@ -29,9 +29,13 @@ public class EmployeeController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public void add(@RequestBody Employee employee) {
-        service.add(employee);
+    @RequestMapping(value = "/add/name/{name}/lastName/{lastname}/depId/{depId}",
+            method = RequestMethod.POST)
+    public void add(@PathVariable("name") String name,
+                    @PathVariable("lastname") String lastName,
+                    @PathVariable("depId") Integer depId) {
+
+        service.add(new Employee(name,lastName,depId));
     }
 
     @ResponseBody

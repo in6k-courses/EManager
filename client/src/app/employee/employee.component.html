@@ -15,7 +15,6 @@
     <button (click)="getAllEmployees()">get</button>
 
     <td>
-
     </td>
     <td>
 
@@ -35,5 +34,16 @@
   </tr>
 
 </table>
+
+<form>
+  <input #name/>
+  <input #lastName/>
+  <input #depId/>
+
+  <button (click) = "add(name.value, lastName.value, depId.value); $event.stopPropagation()">
+  Add
+  </button>
+
+</form>
 </body>
 </html>

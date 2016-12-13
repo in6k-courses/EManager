@@ -28,6 +28,12 @@ export class EmployeeComponent {
      this.employees.filter(emp => emp !== employee)});
    }
 
+  add(name: string, lastName: string, depId: number): void{
+    this.service.create(name, lastName, depId)
+      .then(employee => {this.employees.push(employee)});
+
+  }
+
 
 
 

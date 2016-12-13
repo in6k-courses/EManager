@@ -23,6 +23,14 @@ public class Employee {
     @Column(name = "depId")
     Integer depId;
 
+    public Employee() {}
+
+    public Employee(String name, String lastName, Integer depId) {
+        this.name = name;
+        this.lastName = lastName;
+        this.depId = depId;
+    }
+
 
     public Integer getDepId() {
         return depId;
