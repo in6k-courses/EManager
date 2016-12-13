@@ -23,7 +23,6 @@ export class EmployeeComponent {
    }
 
    deleteEmployee(employee: Employee):void{
-
    this.service.delete(employee.id).then(() => {
      this.employees.filter(emp => emp !== employee)});
    }
@@ -31,15 +30,6 @@ export class EmployeeComponent {
   add(name: string, lastName: string, depId: number): void{
     this.service.create(name, lastName, depId)
       .then(employee => {this.employees.push(employee)});
-
   }
 
-
-
-
- /* getAllEmployees():void {
-    this.service.getAll().subscribe(employees => this.employees = employees);
-
-
-  }*/
 }

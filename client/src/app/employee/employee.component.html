@@ -5,6 +5,17 @@
 </head>
 
 <body>
+
+<form>
+  name: <input #name/> <br>
+  lastname: <input #lastName/> <br>
+  dep. id: <input #depId/> <br>
+
+  <button (click) = "add(name.value, lastName.value, depId.value); $event.stopPropagation()">
+    Add
+  </button>
+</form>
+
 <table  border="0" cellspacing="0" cellpadding="0">
 
   <tr align="middle" valign="middle">
@@ -25,25 +36,19 @@
     <td  align="middle">
       {{e.name}}&nbsp;
     </td>
-    <td  align="middle">
-      &nbsp;{{e.lastName}}
+      {{e.lastName}}
+    <td>
     </td>
-    <td  align="middle">
-      <button (click)="deleteEmployee(e)">delete</button>
+
+    <td>
+      <button (click) = "deleteEmployee(e); $event.stopPropagation()">
+       delete
+      </button>
     </td>
+
   </tr>
 
 </table>
 
-<form>
-  <input #name/>
-  <input #lastName/>
-  <input #depId/>
-
-  <button (click) = "add(name.value, lastName.value, depId.value); $event.stopPropagation()">
-  Add
-  </button>
-
-</form>
 </body>
 </html>

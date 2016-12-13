@@ -4,6 +4,7 @@ import { Http, Response, Headers, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {Employee} from "./employee";
 import headersToString = http.headersToString;
+import {Reward} from "../reward/reward";
 
 
 
@@ -40,10 +41,11 @@ export class EmployeeService {
   return this.http.post(`/api/employee/add/name/${name}/lastName/${lastname}/depId/${depId}`,
                        {headers: this.headers})
     .toPromise()
-
     .then(res => res.json())
     .catch(this.handleError);
   }
+
+
 
 
 

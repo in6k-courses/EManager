@@ -1,6 +1,10 @@
 package employee.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by employee on 12/6/16.
@@ -22,6 +26,19 @@ public class Employee {
 
     @Column(name = "depId")
     Integer depId;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "employees_rewards",
+            joinColumns = {
+                    @JoinColumn(name = "employee_id",
+                                referencedColumnName = "id" )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "reward_id",
+                                referencedColumnName = "id" )
+            }
+    )
+    Set<Reward> rewards = new HashSet<>();
 
     public Employee() {}
 

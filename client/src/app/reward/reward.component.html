@@ -1,0 +1,45 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+<form>
+  <input #name/>
+
+  <button (click) = "add(name.value); $event.stopPropagation()">
+    Add
+  </button>
+</form>
+
+<table  border="0" cellspacing="0" cellpadding="0">
+
+  <tr align="middle" valign="middle">
+    <td>
+      <label> Rewards</label>
+    </td>
+    <button (click)="getAllRewards()">get</button>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr align="middle"  *ngFor = "let r of rewards; let num = index">
+
+    <td  align="middle">
+      {{r.name}}
+    </td>
+    <td  align="middle">
+
+    </td>
+    <td  align="middle">
+
+    </td>
+  </tr>
+
+</table>
+
+</body>
+</html>

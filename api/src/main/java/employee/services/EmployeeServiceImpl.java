@@ -21,7 +21,8 @@ public class EmployeeServiceImpl {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public List<Employee> getAll() {
+
+    public List<Employee> getAll(){
         return employeeRepository.findAll();
     }
 
@@ -30,8 +31,8 @@ public class EmployeeServiceImpl {
         employeeRepository.save(employee);
     }
 
-    public void delete(Integer id){
 
+    public void delete(Integer id){
         employeeRepository.delete(id);
     }
 }
