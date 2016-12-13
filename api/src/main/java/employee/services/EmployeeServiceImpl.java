@@ -23,6 +23,15 @@ public class EmployeeServiceImpl {
 
     public List<Employee> getAll() {
         return employeeRepository.findAll();
+    }
 
+
+    public void add(Employee employee){
+        employeeRepository.save(employee);
+    }
+
+    public void delete(Integer id){
+
+        employeeRepository.delete(id);
     }
 }

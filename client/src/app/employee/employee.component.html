@@ -24,13 +24,13 @@
   <tr align="middle"  *ngFor = "let e of employees; let num = index">
 
     <td  align="middle">
-      {{num+1}}
-    </td>
-    <td  align="middle">
       {{e.name}}&nbsp;
     </td>
     <td  align="middle">
       &nbsp;{{e.lastName}}
+    </td>
+    <td  align="middle">
+      <button (click)="deleteEmployee(e)">delete</button>
     </td>
   </tr>
 

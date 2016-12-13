@@ -13,12 +13,21 @@ import {EmployeeService} from "./employee.service";
 export class EmployeeComponent {
 
   employees: Employee[];
+  employee: Employee;
+  selectedEmployee: Employee;
 
   constructor(private service: EmployeeService){}
 
    getAllEmployees():void{
    this.service.getAll().then(employees => this.employees = employees);
    }
+
+   deleteEmployee(employee: Employee):void{
+
+   this.service.delete(employee.id).then(() => {
+     this.employees.filter(emp => emp !== employee)});
+   }
+
 
 
 

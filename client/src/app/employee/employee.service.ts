@@ -4,12 +4,16 @@ import { Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import 'rxjs/add/operator/toPromise';
 import {Employee} from "./employee";
+import headersToString = http.headersToString;
 
 
 
 @Injectable()
 export class EmployeeService {
-  private employeeUrl = '/api/employees/';
+  private employeeUrl = '/api/employee/getAll/';
+
+  private headers = new Headers({'Content-Type': 'application/json'});
+
 
   constructor(private http: Http ) {  }
 
@@ -24,6 +28,17 @@ export class EmployeeService {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
+
+  delete(id: number):Promise<void>{
+
+    return this.http.delete(`/api/employee/delete/${id}`, {headers: this.headers})
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
+  }
+
+
+
 
  /* getAll(): Observable<Employee[]> {
     return this.http.get(this.employeeUrl)

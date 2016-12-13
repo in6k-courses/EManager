@@ -27,6 +27,7 @@ public class DBConfiguration {
     public Util getPropertyHandler() throws URISyntaxException {
         return new Util(System.getenv("DATABASE_URL"));
     }
+
     @Bean
     public DataSource getDataSource() throws URISyntaxException {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
