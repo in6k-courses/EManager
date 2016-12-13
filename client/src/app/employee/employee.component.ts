@@ -10,13 +10,17 @@ import {EmployeeService} from "./employee.service";
   providers: [ EmployeeService ]
 })
 
-export class EmployeeComponent {
+export class EmployeeComponent implements OnInit{
 
   employees: Employee[];
   employee: Employee;
   selectedEmployee: Employee;
 
   constructor(private service: EmployeeService){}
+
+  ngOnInit(): void {
+    this.getAllEmployees();
+  }
 
    getAllEmployees():void{
    this.service.getAll().then(employees => this.employees = employees);

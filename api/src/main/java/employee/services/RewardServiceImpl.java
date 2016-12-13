@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class RewardServiceImpl {
+public class RewardServiceImpl{
 
     @Autowired
     RewardRepository rewardRepository;

@@ -26,7 +26,6 @@ export class RewardComponent {
   add(name: string): void{
     this.service.create(name)
       .then(employee => {this.rewards.push(employee)});
-
   }
 
 }

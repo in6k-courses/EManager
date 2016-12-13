@@ -80,4 +80,12 @@ public class Employee {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public Set<Reward> getRewards() {
+        return rewards;
+    }
+
+    public void setRewards(Set<Reward> rewards) {
+        this.rewards = rewards;
+    }
 }

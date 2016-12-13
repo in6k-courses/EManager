@@ -16,4 +16,3 @@ ENV MAVEN_HOME /opt/maven
 
 RUN apt-get clean
 
-EXPOSE 8080

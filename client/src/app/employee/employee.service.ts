@@ -10,7 +10,7 @@ import {Reward} from "../reward/reward";
 
 @Injectable()
 export class EmployeeService {
-  private employeeUrl = '/api/employee/getAll/';
+  private employeeUrl = '/api/employee/';
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
@@ -31,15 +31,17 @@ export class EmployeeService {
 
   delete(id: number):Promise<void>{
 
-    return this.http.delete(`/api/employee/delete/${id}`, {headers: this.headers})
+    return this.http.delete(`/api/employee/${id}`, {headers: this.headers})
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
   }
 
-  create(name: string, lastname: string, depId: number): Promise<Employee>{
-  return this.http.post(`/api/employee/add/name/${name}/lastName/${lastname}/depId/${depId}`,
-                       {headers: this.headers})
+  create(name: string, lastName: string, depId: number): Promise<Employee>{
+  return this.http.post(
+              '/api/employee/',
+               JSON.stringify({name: name, lastName: lastName, depId: depId, rewards: Reward[0]}),
+               {headers: this.headers})
     .toPromise()
     .then(res => res.json())
     .catch(this.handleError);

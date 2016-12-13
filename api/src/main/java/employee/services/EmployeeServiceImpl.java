@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by employee on 12/6/16.
- */
 @Service
 @Transactional
 public class EmployeeServiceImpl {
@@ -26,13 +23,12 @@ public class EmployeeServiceImpl {
         return employeeRepository.findAll();
     }
 
-
     public void add(Employee employee){
         employeeRepository.save(employee);
     }
 
-
     public void delete(Integer id){
         employeeRepository.delete(id);
     }
+
 }

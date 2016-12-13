@@ -11,7 +11,7 @@ export class RewardService {
   constructor(private http: Http){}
 
   getAll(): Promise<Reward[]> {
-    return this.http.get('/api/reward/getAll/')
+    return this.http.get('/api/reward/')
       .toPromise()
       .then(response => response.json() as Reward[])
       .catch(this.handleError);
@@ -23,7 +23,8 @@ export class RewardService {
   }
 
   create(name: string): Promise<Reward>{
-    return this.http.post(`/api/reward/add/name/${name}`,
+    return this.http.post('/api/reward/',
+      JSON.stringify({name: name}),
       {headers: this.headers})
       .toPromise()
       .then(res => res.json())
