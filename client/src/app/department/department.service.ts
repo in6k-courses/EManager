@@ -1,20 +1,21 @@
 
 import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
-import {Reward} from "./reward";
+import {Department} from "./departmnet";
+
 
 
 @Injectable()
-export class RewardService {
+export class DepartmentService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http){}
 
-  getAll(): Promise<Reward[]> {
-    return this.http.get('/api/reward/')
+  getAll(): Promise<Department[]> {
+    return this.http.get('/api/department/')
       .toPromise()
-      .then(response => response.json() as Reward[])
+      .then(response => response.json() as Department[])
       .catch(this.handleError);
   }
 
@@ -23,13 +24,14 @@ export class RewardService {
     return Promise.reject(error.message || error);
   }
 
-  create(name: string): Promise<Reward>{
-    return this.http.post('/api/reward/',
+  create(name: string): Promise<Department>{
+    return this.http.post('/api/department/',
       JSON.stringify({name: name}),
       {headers: this.headers})
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);
   }
+
 
 }

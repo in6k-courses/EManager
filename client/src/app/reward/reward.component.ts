@@ -15,12 +15,10 @@ import {Reward} from "./reward";
 export class RewardComponent implements OnInit{
 
   rewards: Reward[];
-  reward: Reward;
 
   constructor(private service: RewardService){}
 
   getAllRewards():void{
-
     this.service.getAll().then(rewards => this.rewards = rewards);
   }
 
@@ -30,9 +28,8 @@ export class RewardComponent implements OnInit{
 
 
   add(name: string): void{
-
     this.service.create(name)
-      .then(employee => {this.rewards.push(employee)});
+      .then(reward => {this.rewards.push(reward)});
   }
 
 }
