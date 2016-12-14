@@ -18,13 +18,12 @@ public class EmployeeServiceImpl {
     @Autowired
     EmployeeRepository employeeRepository;
 
-
     public List<Employee> getAll(){
         return employeeRepository.findAll();
     }
 
-    public void add(Employee employee){
-        employeeRepository.save(employee);
+    public Employee add(Employee employee){
+        return employeeRepository.save(employee);
     }
 
     public void delete(Integer id){

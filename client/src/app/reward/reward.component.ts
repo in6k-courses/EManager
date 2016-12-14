@@ -1,5 +1,5 @@
 
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {RewardService} from "./reward.service";
 import {Reward} from "./reward";
 
@@ -12,7 +12,7 @@ import {Reward} from "./reward";
   providers: [ RewardService ]
 })
 
-export class RewardComponent {
+export class RewardComponent implements OnInit{
 
   rewards: Reward[];
   reward: Reward;
@@ -20,10 +20,17 @@ export class RewardComponent {
   constructor(private service: RewardService){}
 
   getAllRewards():void{
-    this.service.getAll().then(rewards => this.rewards = rewards);  }
+
+    this.service.getAll().then(rewards => this.rewards = rewards);
+  }
+
+  ngOnInit(){
+    this.getAllRewards();
+  }
 
 
   add(name: string): void{
+
     this.service.create(name)
       .then(employee => {this.rewards.push(employee)});
   }

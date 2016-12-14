@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * Created by employee on 12/6/16.
@@ -38,7 +38,8 @@ public class Employee {
                                 referencedColumnName = "id" )
             }
     )
-    Set<Reward> rewards = new HashSet<>();
+    @OrderColumn
+    Reward[] rewards = new Reward[10];
 
     public Employee() {}
 
@@ -81,11 +82,12 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Set<Reward> getRewards() {
+
+    public Reward[] getRewards() {
         return rewards;
     }
 
-    public void setRewards(Set<Reward> rewards) {
+    public void setRewards(Reward[] rewards) {
         this.rewards = rewards;
     }
 }

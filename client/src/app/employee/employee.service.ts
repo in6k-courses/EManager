@@ -4,27 +4,26 @@ import { Http, Response, Headers, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {Employee} from "./employee";
 import headersToString = http.headersToString;
-import {Reward} from "../reward/reward";
 
 
 
 @Injectable()
 export class EmployeeService {
-  private employeeUrl = '/api/employee/';
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-
-  constructor(private http: Http ) {  }
+  constructor(private http: Http ) { }
 
   getAll(): Promise<Employee[]> {
-    return this.http.get(this.employeeUrl)
+
+    return this.http.get('/api/employee/')
       .toPromise()
       .then(response => response.json() as Employee[])
       .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
+
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
@@ -37,14 +36,16 @@ export class EmployeeService {
       .catch(this.handleError);
   }
 
-  create(name: string, lastName: string, depId: number): Promise<Employee>{
-  return this.http.post(
+  create(name: string, lastName: string, depId: number): Promise<Employee> {
+
+    return this.http.post(
               '/api/employee/',
-               JSON.stringify({name: name, lastName: lastName, depId: depId, rewards: Reward[0]}),
+               JSON.stringify({name: name, lastName: lastName, depId: depId}),
                {headers: this.headers})
     .toPromise()
     .then(res => res.json())
     .catch(this.handleError);
+
   }
 
 

@@ -27,9 +27,9 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public void add(@RequestBody Employee employee ) {
+    public Employee add(@RequestBody Employee employee ) {
 
-        service.add(employee);
+        return service.add(employee);
     }
 
     @ResponseBody

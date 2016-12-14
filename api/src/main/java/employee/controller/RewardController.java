@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value = "/api/reward ")
+@RequestMapping(value = "/api/reward/")
 public class RewardController {
 
     @Autowired
@@ -29,9 +29,9 @@ public class RewardController {
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public void add(@RequestBody Reward reward) {
+    public Reward add(@RequestBody Reward reward) {
 
-        service.add(reward);
+        return service.add(reward);
     }
 
 }

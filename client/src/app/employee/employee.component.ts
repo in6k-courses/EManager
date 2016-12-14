@@ -1,6 +1,7 @@
 import {Employee} from "./employee";
 import {Component, OnInit} from "@angular/core";
 import {EmployeeService} from "./employee.service";
+import {Reward} from "../reward/reward";
 
 @Component({
   moduleId: module.id.toString(),
@@ -18,22 +19,26 @@ export class EmployeeComponent implements OnInit{
 
   constructor(private service: EmployeeService){}
 
-  ngOnInit(): void {
+   ngOnInit(): void{
     this.getAllEmployees();
-  }
+   }
 
-   getAllEmployees():void{
+   getAllEmployees():void {
    this.service.getAll().then(employees => this.employees = employees);
    }
 
-   deleteEmployee(employee: Employee):void{
-   this.service.delete(employee.id).then(() => {
-     this.employees.filter(emp => emp !== employee)});
+   deleteEmployee(employee: Employee): void {
+
+     this.service.delete(employee.id);
+     var index = this.employees.indexOf(employee, 0);
+     this.employees.splice(index, 1);
+
    }
 
-  add(name: string, lastName: string, depId: number): void{
+  add(name: string, lastName: string, depId: number): void {
     this.service.create(name, lastName, depId)
-      .then(employee => {this.employees.push(employee)});
+      .then(employee => {
+        this.employees.push(employee)});
   }
 
 }
