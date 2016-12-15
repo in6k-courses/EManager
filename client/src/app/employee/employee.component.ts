@@ -20,14 +20,14 @@ export class EmployeeComponent implements OnInit{
   constructor(private service: EmployeeService){}
 
    ngOnInit(): void{
-    this.getAllEmployees();
+    this.getAll();
    }
 
-   getAllEmployees():void {
+   getAll():void {
    this.service.getAll().then(employees => this.employees = employees);
    }
 
-   deleteEmployee(employee: Employee): void {
+   delete(employee: Employee): void {
 
      this.service.delete(employee.id);
      var index = this.employees.indexOf(employee, 0);
