@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/switchMap';
 import {Employee} from "./employee";
 import headersToString = http.headersToString;
+import {Reward} from "../reward/reward";
 
 
 
@@ -50,12 +51,29 @@ export class EmployeeService {
   }
 
   get(id: number): Promise<Employee>{
-  return this.getAll().then(employees => employees.find(employee => employee.id === id));
-/*    return this.http.get(`/api/employee/${id}`)
+  /*return this.getAll().then(employees => employees.find(employee => employee.id === id));*/
+    return this.http.get(`/api/employee/${id}`)
       .toPromise()
       .then(res => res.json() as Employee)
-      .catch(this.handleError);*/
+      .catch(this.handleError);
   }
+
+  update(employee: Employee): void {
+    this.http.put('/api/employee/',
+      JSON.stringify(employee), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json())
+      .catch(this.handleError);
+
+    /*alert(JSON.stringify(employee));*/
+  }
+
+ /* getEmployeeRewards(id: number): Promise<Reward>{
+
+    return this.get(id).then(rewards => )
+  }*/
+
+
 
 
 

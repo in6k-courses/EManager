@@ -1,6 +1,10 @@
 package employee.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by employee on 12/13/16.
@@ -15,6 +19,18 @@ public class Department {
 
     @Column(name = "name")
     String name;
+
+    @Transient
+    List<Employee> employees = new ArrayList<>();
+    @Transient
+    int rewCounter;
+
+    public Integer getRewCount() {
+        return rewCounter;
+    }
+    public void setRewCount(int a) {
+        this.rewCounter = this.rewCounter+a;
+    }
 
     public Integer getId() {
         return id;
@@ -31,4 +47,16 @@ public class Department {
     public void setName(String name) {
         this.name = name;
     }
+
+    //!!!!!!!!!!!!!!!!!! not bean get/set
+    public void addEmp(Employee employee){
+        employees.add(employee);
+    }
+
+    public List<Employee> getEmp(){
+        return employees;
+    }
+
+
+
 }

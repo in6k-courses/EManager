@@ -27,6 +27,14 @@ public class Employee {
     @Column(name = "depId")
     Integer depId;
 
+    public List<Reward> getRewards() {
+        return rewards;
+    }
+
+    public void setRewards(List<Reward> rewards) {
+        this.rewards = rewards;
+    }
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "employees_rewards",
             joinColumns = {
@@ -38,8 +46,10 @@ public class Employee {
                                 referencedColumnName = "id" )
             }
     )
-    @OrderColumn
-    Reward[] rewards = new Reward[10];
+/*    @OrderColumn
+    Reward[] rewards = new Reward[10];*/
+    private List<Reward> rewards = new ArrayList();
+
 
     public Employee() {}
 
@@ -83,11 +93,4 @@ public class Employee {
     }
 
 
-    public Reward[] getRewards() {
-        return rewards;
-    }
-
-    public void setRewards(Reward[] rewards) {
-        this.rewards = rewards;
-    }
 }

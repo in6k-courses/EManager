@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by employee on 12/14/16.
@@ -26,6 +27,13 @@ public class DepartmentController {
         return service.getAll();
     }
 
+    @ResponseBody
+    @RequestMapping(value = "best", method = RequestMethod.GET)
+    public List<Department> getTop() {
+
+        return service.getTopRewarded();
+    }
+
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -33,4 +41,6 @@ public class DepartmentController {
 
         return service.add(reward);
     }
+
+
 }

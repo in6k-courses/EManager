@@ -33,5 +33,13 @@ export class DepartmentService {
       .catch(this.handleError);
   }
 
+  getTop(): Promise<Department[]>{
+
+    return this.http.get('/api/department/best')
+      .toPromise()
+      .then(response => response.json() as Department[])
+      .catch(this.handleError);
+  }
+
 
 }

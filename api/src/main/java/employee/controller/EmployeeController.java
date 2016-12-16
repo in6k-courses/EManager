@@ -28,8 +28,7 @@ public class EmployeeController {
     @ResponseBody
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public Employee get(@PathVariable("id") Integer id) {
-        System.out.println(service.get(id));
-        System.out.println(service.get(id).getName());
+
         return service.get(id);
     }
 
@@ -46,5 +45,13 @@ public class EmployeeController {
 
         service.delete(id);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public void update(@RequestBody Employee employee ) {
+        service.update(employee);
+    }
+
+
 
 }

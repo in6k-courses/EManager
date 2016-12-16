@@ -16,7 +16,7 @@ import {Department} from "./departmnet";
 export class DepartmentComponent implements OnInit{
 
   departments: Department[];
-
+  top: Department[];
 
   constructor(private service: DepartmentService){}
 
@@ -35,6 +35,10 @@ export class DepartmentComponent implements OnInit{
   this.service.create(name)
   .then(department => {
   this.departments.push(department)});
+  }
+
+  getTop(): void{
+    this.service.getTop().then(top => this.top = top);
   }
 
 }
