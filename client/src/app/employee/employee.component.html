@@ -46,11 +46,12 @@
   </tr>
   </thead>
   <tr *ngFor = "let e of employees; let num = index">
+
     <td>
       {{num+1}}
     </td>
     <td>
-      {{e.name}}
+      <a (click)="viewEmployee(e);">{{e.name}}</a>
     </td>
     <td>
       {{e.lastName}}

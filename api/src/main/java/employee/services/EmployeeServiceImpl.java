@@ -22,6 +22,8 @@ public class EmployeeServiceImpl {
         return employeeRepository.findAll();
     }
 
+    public Employee get (Integer id){ return employeeRepository.findOne(id);}
+
     public Employee add(Employee employee){
         return employeeRepository.save(employee);
     }

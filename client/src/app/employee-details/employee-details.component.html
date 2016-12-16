@@ -1,0 +1,39 @@
+<div *ngIf="employee">
+  <div class="input-group input-group-sm"> <input #name type="text" class="form-control"  aria-describedby="basic-addon1"
+  value= {{employee.name}} >
+
+  </div>
+
+
+  <div class="input-group input-group-sm">
+    <input #lastName type="text" class="form-control" aria-describedby="basic-addon1">
+  </div>
+
+
+  <div class="input-group input-group-sm">
+    <input #depId type="number" class="form-control" aria-describedby="basic-addon1">
+  </div>
+</div>
+
+<table class= "table-bordered table table-striped">
+    <thead>
+    <tr>
+      <th>№</th>
+      <th>Name</th>
+    </tr>
+    </thead>
+
+    <tr *ngFor = "let r of rewards; let num = index">
+      <td>
+        {{num+1}}
+      </td>
+      <td>
+        {{r.name}}
+      </td>
+    </tr>
+  </table>
+
+
+  <button class="btn btn-success btn-sm" (click) = "add(name.value, lastName.value, depId.value);
+             name.value=''; lastName.value=''; depId.value=''">save
+  </button>

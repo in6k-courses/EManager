@@ -2,6 +2,8 @@ import {Employee} from "./employee";
 import {Component, OnInit} from "@angular/core";
 import {EmployeeService} from "./employee.service";
 import {Reward} from "../reward/reward";
+import {AppRoutingModule} from "../app.routing.module";
+import {Router} from "@angular/router";
 
 @Component({
   moduleId: module.id.toString(),
@@ -15,9 +17,10 @@ export class EmployeeComponent implements OnInit{
 
   employees: Employee[];
   employee: Employee;
-  selectedEmployee: Employee;
 
-  constructor(private service: EmployeeService){}
+
+  constructor(private service: EmployeeService,
+              private router: Router){}
 
    ngOnInit(): void{
     this.getAll();
@@ -39,6 +42,10 @@ export class EmployeeComponent implements OnInit{
     this.service.create(name, lastName, depId)
       .then(employee => {
         this.employees.push(employee)});
+  }
+
+  viewEmployee(employee: Employee): void {
+    this.router.navigate(['/empDetails', employee.id]);
   }
 
 }

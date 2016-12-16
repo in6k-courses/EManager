@@ -1,7 +1,8 @@
 
 import {Injectable} from "@angular/core";
-import { Http, Response, Headers, RequestOptions} from "@angular/http";
+import { Http, Headers} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/switchMap';
 import {Employee} from "./employee";
 import headersToString = http.headersToString;
 
@@ -36,7 +37,7 @@ export class EmployeeService {
       .catch(this.handleError);
   }
 
-  create(name: string, lastName: string, depId: number): Promise<Employee> {
+  create(name: string, lastName: string, depId: number): Promise<Employee>{
 
     return this.http.post(
               '/api/employee/',
@@ -48,11 +49,22 @@ export class EmployeeService {
 
   }
 
+  get(id: number): Promise<Employee>{
+  return this.getAll().then(employees => employees.find(employee => employee.id === id));
+/*    return this.http.get(`/api/employee/${id}`)
+      .toPromise()
+      .then(res => res.json() as Employee)
+      .catch(this.handleError);*/
+  }
 
 
 
 
- /* getAll(): Observable<Employee[]> {
+
+
+ /*
+
+ getAll(): Observable<Employee[]> {
     return this.http.get(this.employeeUrl)
         .toArray(this.extractData);
 /!*      .catch(this.handleError);*!/
