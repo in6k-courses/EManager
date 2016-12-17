@@ -33,19 +33,12 @@ export class EmployeeDetailsComponent implements OnInit{
 
   ngOnInit(): void {
 
-/*    this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
-      this.service.get(this.id)
-        .then(employee => this.employee = employee);
-  });
-
-    this.xxx = this.employee.name; */
-
     this.route.params
-      .switchMap((params: Params) => this.empService.get(+params['id']))
-      .subscribe(employee => this.employee = employee);
+              .switchMap((params: Params) => this.empService.get(+params['id']))
+              .subscribe(employee => this.employee = employee);
 
-    this.rewService.getAll().then(allRewards => this.allRewards = allRewards);
+    this.rewService.getAll()
+                   .subscribe(allRewards => this.allRewards = allRewards);
     this.getRewards();
 
   }
@@ -55,20 +48,17 @@ export class EmployeeDetailsComponent implements OnInit{
       .switchMap((params: Params) => this.empService.get(+params['id']))
       .subscribe(employee => this.rewards = employee.rewards);
 
-/*    this.rewards = this.employee.rewards*/
   }
-
-
 
   save(name: string, lastName: string, depId: number): void {
    this.employee.name =name;
    this.employee.lastName = lastName;
    this.employee.depId = depId;
-
    this.employee.rewards = this.rewards;
 
-   this.empService.update(this.employee);
-   this.goBack();
+   this.empService.update(this.employee)
+                  .subscribe(employee => this.employee = employee);
+
   }
 
   goBack(): void {

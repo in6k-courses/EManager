@@ -1,11 +1,10 @@
 
 import {Injectable} from "@angular/core";
-import { Http, Headers} from "@angular/http";
+import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/switchMap';
 import {Employee} from "./employee";
-import headersToString = http.headersToString;
-import {Reward} from "../reward/reward";
+import {Observable} from "rxjs";
 
 
 
@@ -13,97 +12,44 @@ import {Reward} from "../reward/reward";
 export class EmployeeService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
+  private options  = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http ) { }
-
-  getAll(): Promise<Employee[]> {
-
-    return this.http.get('/api/employee/')
-      .toPromise()
-      .then(response => response.json() as Employee[])
-      .catch(this.handleError);
-  }
 
   private handleError(error: any): Promise<any> {
 
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
-
-  delete(id: number):Promise<void>{
-
-    return this.http.delete(`/api/employee/${id}`, {headers: this.headers})
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
+  getAll(): Observable<Employee[]>{
+  return this.http.get('/api/employee/')
+                  .map((res:Response) => res.json())
+                  .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  create(name: string, lastName: string, depId: number): Promise<Employee>{
-
-    return this.http.post(
-              '/api/employee/',
-               JSON.stringify({name: name, lastName: lastName, depId: depId}),
-               {headers: this.headers})
-    .toPromise()
-    .then(res => res.json())
-    .catch(this.handleError);
-
-  }
-
-  get(id: number): Promise<Employee>{
-  /*return this.getAll().then(employees => employees.find(employee => employee.id === id));*/
+  get(id: number): Observable<Employee>{
     return this.http.get(`/api/employee/${id}`)
-      .toPromise()
-      .then(res => res.json() as Employee)
-      .catch(this.handleError);
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  update(employee: Employee): void {
-    this.http.put('/api/employee/',
-      JSON.stringify(employee), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json())
-      .catch(this.handleError);
 
-    /*alert(JSON.stringify(employee));*/
+  delete(id: number):Observable<Employee>{
+
+    return this.http.delete(`/api/employee/${id}`)
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
- /* getEmployeeRewards(id: number): Promise<Reward>{
-
-    return this.get(id).then(rewards => )
-  }*/
-
-
-
-
-
-
-
-
- /*
-
- getAll(): Observable<Employee[]> {
-    return this.http.get(this.employeeUrl)
-        .toArray(this.extractData);
-/!*      .catch(this.handleError);*!/
+  create(employee: Employee): Observable<Employee>{
+    return this.http.post('/api/employee/', employee, this.options)
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  private extractData(res: Response){
-    let body = res.json();
-    return body.data || {}
+  update(employee: Employee): Observable<Employee> {
+     return this.http.put('/api/employee/',employee, this.options)
+              .map((res:Response) => res.json())
+              .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 
-  }*/
- /* private handleError (error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }*/
-
+  }
 }

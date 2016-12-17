@@ -28,7 +28,7 @@ public class EmployeeServiceImpl {
         return employeeRepository.save(employee);
     }
 
-    public void update(Employee employee){ employeeRepository.saveAndFlush(employee);}
+    public Employee update(Employee employee){ return employeeRepository.saveAndFlush(employee);}
 
     public void delete(Integer id){
         employeeRepository.delete(id);

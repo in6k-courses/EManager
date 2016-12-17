@@ -26,19 +26,21 @@ export class DepartmentComponent implements OnInit{
 
 
   getAllDepartments():void{
-  this.service.getAll().then(departments => this.departments = departments);
+  this.service.getAll()
+              .subscribe(departments => this.departments = departments);
   }
 
 
   add(name: string): void {
+  let department = new Department();
+  department.name = name;
 
-  this.service.create(name)
-  .then(department => {
-  this.departments.push(department)});
+  this.service.create(department)
+              .subscribe(department => this.departments.push(department));
   }
 
-  getTop(): void{
+/*  getTop(): void{
     this.service.getTop().then(top => this.top = top);
-  }
+  }*/
 
 }

@@ -1,7 +1,8 @@
 
 import {Injectable} from "@angular/core";
-import {Http, Headers} from "@angular/http";
+import {Http, Headers, RequestOptions, Response} from "@angular/http";
 import {Department} from "./departmnet";
+import {Observable} from "rxjs";
 
 
 
@@ -9,37 +10,30 @@ import {Department} from "./departmnet";
 export class DepartmentService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
+  private options = new RequestOptions ({headers: this.headers});
 
   constructor(private http: Http){}
 
-  getAll(): Promise<Department[]> {
+  getAll(): Observable<Department[]> {
     return this.http.get('/api/department/')
-      .toPromise()
-      .then(response => response.json() as Department[])
-      .catch(this.handleError);
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-  }
 
-  create(name: string): Promise<Department>{
-    return this.http.post('/api/department/',
-      JSON.stringify({name: name}),
-      {headers: this.headers})
-      .toPromise()
-      .then(res => res.json())
-      .catch(this.handleError);
+  create(department: Department): Observable<Department>{
+    return this.http.post('/api/department/',department,this.options)
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
-
+/*
   getTop(): Promise<Department[]>{
 
     return this.http.get('/api/department/best')
       .toPromise()
       .then(response => response.json() as Department[])
       .catch(this.handleError);
-  }
+  }*/
 
 
 }

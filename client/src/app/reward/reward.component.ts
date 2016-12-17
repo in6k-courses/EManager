@@ -19,7 +19,7 @@ export class RewardComponent implements OnInit{
   constructor(private service: RewardService){}
 
   getAllRewards():void{
-    this.service.getAll().then(rewards => this.rewards = rewards);
+    this.service.getAll().subscribe(rewards => this.rewards = rewards);
   }
 
   ngOnInit(){
@@ -28,8 +28,11 @@ export class RewardComponent implements OnInit{
 
 
   add(name: string): void{
-    this.service.create(name)
-      .then(reward => {this.rewards.push(reward)});
+    let reward = new Reward();
+    reward.name = name;
+
+    this.service.create(reward)
+                .subscribe(reward => this.rewards.push(reward));
   }
 
 }

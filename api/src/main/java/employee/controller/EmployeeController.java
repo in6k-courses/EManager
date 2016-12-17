@@ -48,8 +48,8 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public void update(@RequestBody Employee employee ) {
-        service.update(employee);
+    public Employee update(@RequestBody Employee employee ) {
+        return service.update(employee);
     }
 
 

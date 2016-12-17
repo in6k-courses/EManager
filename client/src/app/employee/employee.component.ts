@@ -1,8 +1,6 @@
 import {Employee} from "./employee";
 import {Component, OnInit} from "@angular/core";
 import {EmployeeService} from "./employee.service";
-import {Reward} from "../reward/reward";
-import {AppRoutingModule} from "../app.routing.module";
 import {Router} from "@angular/router";
 
 @Component({
@@ -26,26 +24,34 @@ export class EmployeeComponent implements OnInit{
     this.getAll();
    }
 
+
    getAll():void {
-   this.service.getAll().then(employees => this.employees = employees);
+    this.service.getAll()
+                .subscribe(employees => this.employees = employees);
    }
 
-   delete(employee: Employee): void {
 
-     this.service.delete(employee.id);
+   delete(employee: Employee): void{
+
+     this.service.delete(employee.id).subscribe();
      var index = this.employees.indexOf(employee, 0);
      this.employees.splice(index, 1);
-
    }
 
   add(name: string, lastName: string, depId: number): void {
-    this.service.create(name, lastName, depId)
-      .then(employee => {
-        this.employees.push(employee)});
+    let employee = new Employee();
+    employee.name = name;
+    employee.lastName = lastName;
+    employee.depId = depId;
+
+    this.service.create(employee)
+                .subscribe(employee => this.employees.push(employee));
   }
 
   viewEmployee(employee: Employee): void {
     this.router.navigate(['/empDetails', employee.id]);
   }
+
+
 
 }
