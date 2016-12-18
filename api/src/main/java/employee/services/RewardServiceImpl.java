@@ -13,18 +13,19 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class RewardServiceImpl {
+public class RewardServiceImpl{
 
     @Autowired
     RewardRepository rewardRepository;
 
 
     public List<Reward> getAll(){
-        return rewardRepository.findAll();
+    return rewardRepository.findAll();
     }
 
 
-    public void add(Reward reward){
-        rewardRepository.save(reward);
+    public Reward add(Reward reward){
+
+        return rewardRepository.save(reward);
     }
 }

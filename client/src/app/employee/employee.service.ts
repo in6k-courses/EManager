@@ -1,76 +1,55 @@
 
 import {Injectable} from "@angular/core";
-import { Http, Response, Headers, RequestOptions} from "@angular/http";
+import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/switchMap';
 import {Employee} from "./employee";
-import headersToString = http.headersToString;
-import {Reward} from "../reward/reward";
+import {Observable} from "rxjs";
 
 
 
 @Injectable()
 export class EmployeeService {
-  private employeeUrl = '/api/employee/getAll/';
 
   private headers = new Headers({'Content-Type': 'application/json'});
+  private options  = new RequestOptions({ headers: this.headers });
 
-
-  constructor(private http: Http ) {  }
-
-  getAll(): Promise<Employee[]> {
-    return this.http.get(this.employeeUrl)
-      .toPromise()
-      .then(response => response.json() as Employee[])
-      .catch(this.handleError);
-  }
+  constructor(private http: Http ) { }
 
   private handleError(error: any): Promise<any> {
+
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
-
-  delete(id: number):Promise<void>{
-
-    return this.http.delete(`/api/employee/delete/${id}`, {headers: this.headers})
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
+  getAll(): Observable<Employee[]>{
+  return this.http.get('/api/employee/')
+                  .map((res:Response) => res.json())
+                  .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  create(name: string, lastname: string, depId: number): Promise<Employee>{
-  return this.http.post(`/api/employee/add/name/${name}/lastName/${lastname}/depId/${depId}`,
-                       {headers: this.headers})
-    .toPromise()
-    .then(res => res.json())
-    .catch(this.handleError);
+  get(id: number): Observable<Employee>{
+    return this.http.get(`/api/employee/${id}`)
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 
+  delete(id: number):Observable<Employee>{
 
-
-
- /* getAll(): Observable<Employee[]> {
-    return this.http.get(this.employeeUrl)
-        .toArray(this.extractData);
-/!*      .catch(this.handleError);*!/
+    return this.http.delete(`/api/employee/${id}`)
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  private extractData(res: Response){
-    let body = res.json();
-    return body.data || {}
+  create(employee: Employee): Observable<Employee>{
+    return this.http.post('/api/employee/', employee, this.options)
+                    .map((res:Response) => res.json())
+                    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
 
-  }*/
- /* private handleError (error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }*/
+  update(employee: Employee): Observable<Employee> {
+     return this.http.put('/api/employee/',employee, this.options)
+              .map((res:Response) => res.json())
+              .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 
+  }
 }

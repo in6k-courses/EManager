@@ -11,37 +11,47 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by employee on 12/6/16.
- */
-
 @RestController
-@RequestMapping(value = "/api/employee")
+@RequestMapping(value = "/api/employee/")
 
 public class EmployeeController {
     @Autowired
     private EmployeeServiceImpl service;
 
     @ResponseBody
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Employee> getAll() {
+
         return service.getAll();
     }
 
     @ResponseBody
-    @RequestMapping(value = "/add/name/{name}/lastName/{lastname}/depId/{depId}",
-            method = RequestMethod.POST)
-    public void add(@PathVariable("name") String name,
-                    @PathVariable("lastname") String lastName,
-                    @PathVariable("depId") Integer depId) {
+    @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
+    public Employee get(@PathVariable("id") Integer id) {
 
-        service.add(new Employee(name,lastName,depId));
+        return service.get(id);
     }
 
     @ResponseBody
-    @RequestMapping(value = {"/delete/{id}"}, method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public Employee add(@RequestBody Employee employee ) {
+
+        return service.add(employee);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/{id}"}, method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Integer id) {
+
         service.delete(id);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public Employee update(@RequestBody Employee employee ) {
+        return service.update(employee);
+    }
+
+
 
 }

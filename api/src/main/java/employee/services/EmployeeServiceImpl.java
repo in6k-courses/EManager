@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by employee on 12/6/16.
- */
 @Service
 @Transactional
 public class EmployeeServiceImpl {
@@ -21,18 +18,22 @@ public class EmployeeServiceImpl {
     @Autowired
     EmployeeRepository employeeRepository;
 
-
     public List<Employee> getAll(){
         return employeeRepository.findAll();
     }
 
+    public Employee get (Integer id){ return employeeRepository.findOne(id);}
 
-    public void add(Employee employee){
-        employeeRepository.save(employee);
+    public Employee add(Employee employee){
+        return employeeRepository.save(employee);
     }
 
+    public Employee update(Employee employee){ return employeeRepository.saveAndFlush(employee);}
 
     public void delete(Integer id){
         employeeRepository.delete(id);
     }
+
+
+
 }

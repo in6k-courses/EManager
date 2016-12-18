@@ -12,8 +12,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value = "/api/reward")
-
+@RequestMapping(value = "/api/reward/")
 public class RewardController {
 
     @Autowired
@@ -21,7 +20,7 @@ public class RewardController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Reward> getAll() {
 
         return service.getAll();
@@ -29,10 +28,10 @@ public class RewardController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/add/name/{name}",       method = RequestMethod.POST)
-    public void add(@PathVariable("name") String name) {
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public Reward add(@RequestBody Reward reward) {
 
-        service.add(new Reward(name));
+        return service.add(reward);
     }
 
 }

@@ -1,8 +1,32 @@
-<label>HomePage</label>
-<br>
-<a [routerLink]="['/employees']">employees</a>
-<br>
-<a [routerLink]="['/rewards']">rewards</a>
+
+    <nav class="navbar navbar-default navbar-inverse">
+        <div class="container-fluid">
+          <input type="checkbox" id="navbar-toggle-cbox">
+          <div class="navbar-header">
+            <label for="navbar-toggle-cbox"
+                   class="navbar-toggle collapsed"
+                   data-toggle="collapse" data-target="#navbar"
+                   aria-expanded="false" aria-controls="navbar">
+
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+
+            </label>
+            <a class="navbar-brand" href="#">EM</a>
+          </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/employees']">Employees</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/rewards']">Rewards</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/departments']">Departments</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <router-outlet></router-outlet>
+
 

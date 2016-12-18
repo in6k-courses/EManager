@@ -5,9 +5,11 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {EmployeeComponent} from "./employee/employee.component";
-import {EmployeeService} from "./employee/employee.service";
 import {AppRoutingModule} from "./app.routing.module";
 import {RewardComponent} from "./reward/reward.component";
+import {DepartmentComponent} from "./department/department.component";
+import {EmployeeDetailsComponent} from "./employee-details/employee-details.component";
+
 
 
 
@@ -15,7 +17,10 @@ import {RewardComponent} from "./reward/reward.component";
   declarations: [
     AppComponent,
     EmployeeComponent,
-    RewardComponent
+    RewardComponent,
+    DepartmentComponent,
+    EmployeeComponent,
+    EmployeeDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +28,7 @@ import {RewardComponent} from "./reward/reward.component";
     HttpModule,
    AppRoutingModule
   ],
-  providers: [EmployeeService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

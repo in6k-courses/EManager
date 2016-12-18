@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * Created by employee on 12/6/16.
@@ -27,6 +27,14 @@ public class Employee {
     @Column(name = "depId")
     Integer depId;
 
+    public List<Reward> getRewards() {
+        return rewards;
+    }
+
+    public void setRewards(List<Reward> rewards) {
+        this.rewards = rewards;
+    }
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "employees_rewards",
             joinColumns = {
@@ -38,7 +46,10 @@ public class Employee {
                                 referencedColumnName = "id" )
             }
     )
-    Set<Reward> rewards = new HashSet<>();
+/*    @OrderColumn
+    Reward[] rewards = new Reward[10];*/
+    private List<Reward> rewards = new ArrayList();
+
 
     public Employee() {}
 
@@ -80,4 +91,6 @@ public class Employee {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+
 }
